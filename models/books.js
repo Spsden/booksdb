@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+const mongooseFuzzySearching= require("mongoose-fuzzy-searching");
+
+
  const BookSchema = new mongoose.Schema({
   ISBN: {
     type: String,
@@ -40,6 +43,11 @@ const mongoose = require("mongoose");
 
 
 },{timestamps:true});
+
+BookSchema.index({book_title: 'text'});
+
+
+BookSchema.plugin(mongooseFuzzySearching, { fields: ['book_title'] })
 
 
 

@@ -7,10 +7,27 @@ const { StatusCodes } = require("http-status-codes");
 
 const getAllBooks = async (req, res) => {
   console.log("came here")
-  const books = await Books.find({ book_title: 'Nights Below Station Street'});
-  console.log(books)
 
-  res.status(StatusCodes.OK).json({ Books, count: books.length });
+  const searchQuery = req.query.search;
+  const pageLimit = 12;
+  const currentPage = req.query.page || 0
+
+  console.log(req.query.search)
+  try {
+    const results = await Books.find({ $text: { $search: searchQuery } }).skip(currentPage).limit(pageLimit).exec();
+    
+  res.status(StatusCodes.OK).json({ results, count: results.length, });
+
+    //console.log(results);
+  } catch (error) {
+    console.error(error);
+  }
+
+
+  // const books = await Books.find({ book_title: 'Nights Below Station Street'});
+  // console.log(books)
+  // console.log(users)
+
 };
 function haha(task) {
   console.log(task)
