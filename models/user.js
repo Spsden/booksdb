@@ -23,6 +23,7 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     minlength: 6,
   },
+  
 });
 
 //encrypt password before saving to mongo

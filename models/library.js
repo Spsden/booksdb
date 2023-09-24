@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 
-const mongooseFuzzySearching= require("mongoose-fuzzy-searching");
-
-
- const BookSchema = new mongoose.Schema({
+const LibrarySchema = new mongoose.Schema({
+  gbooks_id: {
+    type: String,
+    required: [true, "gbooks type required"],
+  },
   ISBN: {
     type: String,
     required: [true, "ISBN type required"],
@@ -14,41 +15,29 @@ const mongooseFuzzySearching= require("mongoose-fuzzy-searching");
   },
   image_url_s: {
     type: String,
-   
   },
   image_url_m: {
     type: String,
-   
   },
   image_url_l: {
     type: String,
-   
   },
-  publisher:{
-    type:String,
+  publisher: {
+    type: String,
     required: [true, "book publisher required"],
-
   },
-  book_author:{
-    type:String,
+  book_author: {
+    type: String,
     required: [true, "book author required"],
-
   },
-  year_of_publication:{
-    type:String,
+  number_available: {
+    type: Number,
+    required: [true, "provide number available"],
+  },
+  year_of_publication: {
+    type: String,
     required: [true, "book year-of-publication required"],
-
   },
+});
 
-
-
-},{timestamps:true});
-
-//BookSchema.index({book_title: 'text'});
-
-
-
-
-
-
-module.exports = mongoose.model("book-collec3", BookSchema);
+module.exports = mongoose.model("library", LibrarySchema);

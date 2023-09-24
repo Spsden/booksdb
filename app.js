@@ -5,6 +5,8 @@ const { connectDB } = require("./db/connect");
 require("dotenv").config();
 const auth = require("./routes/auth");
 const books = require("./routes/books");
+const library = require("./routes/library")
+
 const notFound = require("./middleware/not_found");
 const errorHandler = require("./middleware/error_handler");
 const authenticateUser = require("./middleware/authentication");
@@ -29,8 +31,9 @@ app.use(helmet())
 app.use(cors())
 app.use(xss())
 
-// app.use("/api/v1/auth/", auth);
+ app.use("/api/v1/auth/", auth);
 app.use("/api/v1/bookdb/", books);
+app.use("/api/v1/library/",library)
 app.use(notFound);
 app.use(errorHandler);
 

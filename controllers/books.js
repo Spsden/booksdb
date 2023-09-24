@@ -7,16 +7,26 @@ const { StatusCodes } = require("http-status-codes");
 
 const getAllBooks = async (req, res) => {
   console.log("came here")
+  const { search, page } = req.query;
 
-  const searchQuery = req.query.search;
-  const pageLimit = 12;
-  const currentPage = req.query.page || 0
+  //const searchQuery = req.query.search;
+ // const pageLimit = 12;
+  // const currentPage = req.query.page || 0
+  const limit = 10; // Set your desired results per page limit
+    const skip = (page - 1) * limit;
 
   console.log(req.query.search)
   try {
-    const results = await Books.find({ $text: { $search: searchQuery } }).skip(currentPage).limit(pageLimit).exec();
+
     
-  res.status(StatusCodes.OK).json({ results, count: results.length, });
+    
+
+      const totalCount = await Books.countDocuments({ $text: { $search: search } });
+      console.log(totalCount)
+
+    const results = await Books.find({ $text: { $search: search } }).skip(skip).limit(limit).exec();
+    
+  res.status(StatusCodes.OK).json({ results,totalcount:totalCount, count: results.length, });
 
     //console.log(results);
   } catch (error) {
