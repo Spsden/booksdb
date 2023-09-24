@@ -4,6 +4,7 @@ const UnAuthenticatedRequest = require("../errors/unauthenticated_request");
 const { findOne } = require("../models/user");
 const User = require("../models/user");
 
+
 const register = async (req, res) => {
   const user = await User.create({ ...req.body });
   const token = user.createJWT();
