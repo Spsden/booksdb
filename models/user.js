@@ -23,6 +23,12 @@ const UserSchema = new mongoose.Schema({
     required: [true, "Please provide password"],
     minlength: 6,
   },
+  // cart:{
+  //   type:[String]
+  // },
+  // issued:{
+  //   type:[String]
+  // }
   
 });
 

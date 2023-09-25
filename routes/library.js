@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    createLibrary
+    createLibrary,
+    getAllLibrary
   } = require("../controllers/library");
 
-  router.route("/").post(createLibrary);
+  router.route("/").get(getAllLibrary).post(createLibrary)
 
   module.exports = router

@@ -6,20 +6,24 @@ const LibrarySchema = require("../models/library")
 const { StatusCodes } = require("http-status-codes");
 
 
-const getAllBooks = async (req, res) => {
-  console.log("came here")
-  const { search, page } = req.query;
+const getAllLibrary = async (req, res) => {
+    const tasks = await LibrarySchema.find({ createdBy: req.user.userId }).sort(
+        "createdAt"
+      );
+    
+      res.status(StatusCodes.OK).json({ tasks, count: tasks.length });
 
  
 };
 
 
 const createLibrary = async (req, res) => {
-//  req.body.createdBy = req.user.userId;
-  const library = await LibrarySchema.create(req.body);
-
+    req.body.createdBy = req.user.userId;
+    console.log("came create")
+    const library = await LibrarySchema.create(req.body);
   
-  res.status(StatusCodes.CREATED).json({ library });
+   
+    res.status(StatusCodes.CREATED).json({ library });
 };
 
 const getLibrary = async (req, res) => {
@@ -95,5 +99,6 @@ const getLibrary = async (req, res) => {
 
 module.exports = {
   getLibrary,
+  getAllLibrary,
   createLibrary
 };
